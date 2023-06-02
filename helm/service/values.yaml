@@ -1,0 +1,15 @@
+replicaCount: 1
+
+image:
+  repository: alexaaronpenasjultra/pewpew
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+service:
+  name: pewpew-service
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+
+env:
+  name: dev
