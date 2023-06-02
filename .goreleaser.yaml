@@ -1,3 +1,4 @@
 nfpms:
-  - formats:
+  - maintainer: SJU
+    formats:
       - apk
