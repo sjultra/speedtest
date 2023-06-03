@@ -68,7 +68,7 @@ jobs:
         with:
           distribution: goreleaser
           version: latest
-          args: build --clean --snapshot
+          args: build --single-target --snapshot
         # env:
         #   GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         #   FURY_TOKEN: ${{ secrets.FURY_TOKEN }}
