@@ -5,11 +5,11 @@ variables:
 
 includes:
   - from_url:
-      url: https://raw.githubusercontent.com/sjultra/speedtest/build.yml
+      url: https://raw.githubusercontent.com/sjultra/speedtest/main/build.yml
   - from_url:
-      url: https://raw.githubusercontent.com/sjultra/speedtest/release.yml
+      url: https://raw.githubusercontent.com/sjultra/speedtest/main/release.yml
   - from_url:
-      url: https://raw.githubusercontent.com/sjultra/speedtest/docker.yml
+      url: https://raw.githubusercontent.com/sjultra/speedtest/main/docker.yml
 
 before:
   hooks:
