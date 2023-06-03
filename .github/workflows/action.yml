@@ -68,7 +68,7 @@ jobs:
         with:
           distribution: goreleaser
           version: latest
-          args: build --single-target --snapshot
+          args: release --clean
         # env:
         #   GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         #   FURY_TOKEN: ${{ secrets.FURY_TOKEN }}
@@ -79,7 +79,7 @@ jobs:
         #   TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
 
       - name: List files
-        run: ls
+        run: ls dist/
 
       # - name: Build and push
       #   uses: docker/build-push-action@v4
