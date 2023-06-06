@@ -1,4 +1,4 @@
-module github.com/caarlos0/speedtest-exporter
+module github.com/sjultra/speedtest
 
 require (
 	github.com/alecthomas/kingpin v2.2.6+incompatible

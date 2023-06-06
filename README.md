@@ -13,46 +13,11 @@ Exports [Speedtest CLI](https://www.speedtest.net/apps/cli) metrics in the prome
 
 ## Install
 
-**homebrew**:
-
-```sh
-brew install caarlos0/tap/speedtest-exporter
-```
-
 **docker**:
 
 ```sh
-docker run --rm -p 8080:8080 caarlos0/speedtest-exporter
+docker run --rm -p 8080:8080 sjultra/speedtest-exporter
 ```
-
-**apt**:
-
-```sh
-echo 'deb [trusted=yes] https://repo.caarlos0.dev/apt/ /' | sudo tee /etc/apt/sources.list.d/caarlos0.list
-sudo apt update
-sudo apt install speedtest-exporter
-```
-
-**yum**:
-
-```sh
-echo '[caarlos0]
-name=caarlos0
-baseurl=https://repo.caarlos0.dev/yum/
-enabled=1
-gpgcheck=0' | sudo tee /etc/yum.repos.d/caarlos0.repo
-sudo yum install speedtest-exporter
-```
-
-**deb/rpm/apk**:
-
-Download the `.apk`, `.deb` or `.rpm` from the [releases page][releases] and install with the appropriate commands.
-
-**manually**:
-
-Download the pre-compiled binaries from the [releases page][releases] or clone the repo build from source.
-
-[releases]: https://github.com/caarlos0/speedtest-exporter/releases
 
 ## Stargazers over time
 

@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/alecthomas/kingpin"
-	"github.com/caarlos0/speedtest-exporter/collector"
+	"github.com/sjultra/speedtest/collector"
 	"github.com/patrickmn/go-cache"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
