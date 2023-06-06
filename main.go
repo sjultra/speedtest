@@ -16,7 +16,7 @@ import (
 
 // nolint: gochecknoglobals
 var (
-	bind     = kingpin.Flag("bind", "addr to bind the server").Short('b').Default(":9876").String()
+	bind     = kingpin.Flag("bind", "addr to bind the server").Short('b').Default(":8080").String()
 	debug    = kingpin.Flag("debug", "show debug logs").Default("false").Bool()
 	format   = kingpin.Flag("logFormat", "log format to use").Default("console").Enum("json", "console")
 	interval = kingpin.Flag("refresh.interval", "time between refreshes with speedtest").Default("30m").Duration()
