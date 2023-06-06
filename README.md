@@ -22,7 +22,7 @@ brew install caarlos0/tap/speedtest-exporter
 **docker**:
 
 ```sh
-docker run --rm -p 9876:9876 caarlos0/speedtest-exporter
+docker run --rm -p 8080:8080 caarlos0/speedtest-exporter
 ```
 
 **apt**:

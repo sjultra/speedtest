@@ -38,58 +38,48 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      # - name: Login to Docker Hub
-      #   uses: docker/login-action@v2
-      #   with:
-      #     username: ${{ secrets.DOCKERHUB_USERNAME }}
-      #     password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      # - name: Login to GitHub Container Registry
-      #   uses: docker/login-action@v2
-      #   with:
-      #     registry: ghcr.io
-      #     username: ${{ github.repository_owner }}
-      #     password: ${{ secrets.GH_TOKEN }}
-
-      # Install Go project dependencies
-      - name: Download Go modules
-        run: go mod tidy
-
-      # Build the Go project
-      - name: Build
-        run: go build -v ./...
-
-      # Test the Go project
-      - name: Test
-        run: go test ./...
-
-      - name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v2
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
         with:
-          distribution: goreleaser
-          version: latest
-          args: release --clean
-        # env:
-        #   GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-        #   FURY_TOKEN: ${{ secrets.FURY_TOKEN }}
-        #   GORELEASER_KEY: ${{ secrets.GORELEASER_KEY }}
-        #   TWITTER_CONSUMER_KEY: ${{ secrets.TWITTER_CONSUMER_KEY }}
-        #   TWITTER_CONSUMER_SECRET: ${{ secrets.TWITTER_CONSUMER_SECRET }}
-        #   TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
-        #   TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: List files
-        run: ls dist/
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GH_TOKEN }}
 
-      # - name: Build and push
-      #   uses: docker/build-push-action@v4
+      # TODO: build, test, lint
+      # Build the Go project
+      # - name: Build
+      #   run: go build -v ./...
+      # Test the Go project
+      # - name: Test
+      #   run: go test ./...
+      # - uses: actions/checkout@v2
+      # - name: golangci-lint
+      #   uses: golangci/golangci-lint-action@v2
       #   with:
-      #     context: .
-      #     file: ./docker/Dockerfile
-      #     push: true
-      #     tags: |
-      #       ${{ secrets.DOCKERHUB_USERNAME }}/speedtest:latest
-      #       ghcr.io/${{ github.repository_owner }}/speedtest:latest
+      #     # Use supplied Go version
+      #     skip-go-installation: true
+      #     # Optional: golangci-lint command line arguments.
+      #     args: --issues-exit-code=0
+      #     # Optional: working directory, useful for monorepos
+      #     # working-directory: somedir
+      #     # Optional: show only new issues if it's a pull request. The default value is `false`.
+      #     only-new-issues: true
+
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./docker/Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/speedtest:latest
+            ghcr.io/${{ github.repository_owner }}/speedtest:latest
 
       # # install and authenticate jfrog/artifactory CLI
       # - uses: jfrog/setup-jfrog-cli@v3.0.0
