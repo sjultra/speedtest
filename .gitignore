@@ -1,7 +1,3 @@
-bin/
-dist/
-coverage.out
-
-dist/
-
-.gvm_local/
+data/influxdb/*
+data/grafana/*
+.env

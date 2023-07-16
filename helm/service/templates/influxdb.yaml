@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influxdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: influxdb
+  template:
+    metadata:
+      labels:
+        app: influxdb
+    spec:
+      containers:
+        - name: influxdb
+          image: {{ .Values.influxdb.image }}
+          ports:
+            - containerPort: 8086
+          volumeMounts:
+            - name: influxdb-data
+              mountPath: /var/lib/influxdb
+          env:
+            - name: INFLUXDB_ADMIN_USER
+              value: {{ .Values.influxdb.adminUser }}
+            - name: INFLUXDB_ADMIN_PASSWORD
+              value: {{ .Values.influxdb.adminPassword }}
+            - name: INFLUXDB_DB
+              value: {{ .Values.influxdb.db }}
+      volumes:
+        - name: influxdb-data
+          hostPath:
+            path: ./data/influxdb/
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: influxdb
+spec:
+  selector:
+    app: influxdb
+  ports:
+    - protocol: TCP
+      port: 8086
+      targetPort: 8086

@@ -1,9 +1,4 @@
 apiVersion: v2
-name: speedtest-cron
-description: A network diagnositics cron job based on the official Speed Test CLI
-type: application
-version: 1.0.0
-appVersion: "1.0.0"
-maintainers:
-  - email: contact@sjultra.com
-    name: devopssju
+name: speedtest-chart
+version: 0.1.0
+description: A Helm chart for deploying Speedtest with InfluxDB and Grafana
