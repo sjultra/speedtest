@@ -22,11 +22,13 @@ spec:
           ports:
             - containerPort: 3000
           volumeMounts:
-            - name: grafana-provisioning
-              mountPath: /etc/grafana/provisioning
+            - name: grafana-provisioning-dashboards
+              mountPath: /etc/grafana/provisioning/dashboards
+            - name: grafana-provisioning-datasources
+              mountPath: /etc/grafana/provisioning/datasources
           env:
             - name: GF_SERVER_ROOT_URL
-              value: http://localhost
+              value: "{{ .Values.grafana.ROOTURL }}"
             - name: GF_SECURITY_ADMIN_PASSWORD
               value: "{{ .Values.grafana.adminPassword }}"
             - name: GF_AUTH_ANONYMOUS_ENABLED
@@ -47,3 +49,4 @@ spec:
     - protocol: TCP
       port: {{ .Values.grafana.port }}
       targetPort: 3000
+
