@@ -34,9 +34,12 @@ spec:
             - name: GF_AUTH_ANONYMOUS_ENABLED
               value: "true"
       volumes:
-        - name: grafana-provisioning
+        - name: grafana-provisioning-dashboards
           configMap:
-            name: {{ include "<chart-name>.fullname" . }}-grafana-provisioning
+            name: {{ include "<chart-name>.fullname" . }}-grafana-provisioning-dashboards
+        - name: grafana-provisioning-datasources
+          configMap:
+            name: {{ include "<chart-name>.fullname" . }}-grafana-provisioning-datasources
 ---
 apiVersion: v1
 kind: Service
