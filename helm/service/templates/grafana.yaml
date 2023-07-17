@@ -28,13 +28,13 @@ spec:
             - name: GF_SERVER_ROOT_URL
               value: http://localhost
             - name: GF_SECURITY_ADMIN_PASSWORD
-              value: {{ .Values.grafana.adminPassword }}
+              value: "{{ .Values.grafana.adminPassword }}"
             - name: GF_AUTH_ANONYMOUS_ENABLED
               value: "true"
       volumes:
         - name: grafana-provisioning
-          hostPath:
-            path: ./docker/grafana/provisioning
+          configMap:
+            name: {{ include "<chart-name>.fullname" . }}-grafana-provisioning
 ---
 apiVersion: v1
 kind: Service
