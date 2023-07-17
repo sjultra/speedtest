@@ -3,8 +3,8 @@ kind: ConfigMap
 metadata:
   name: {{ include "<chart-name>.fullname" . }}-grafana-provisioning
 data:
-  {{- $files := .Files.Glob "files/grafana/provisioning/*" }}
+  {{- $files := .Files.Glob "files/grafana/provisioning/**" }}
   {{- range $index, $file := $files }}
-  {{ $file.Name }}: |-
-    {{ $file.AsString | indent 4 }}
+  {{ $file.Path | replace "files/" "" }}: |-
+    {{ $file.AsString | nindent 4 }}
   {{- end }}

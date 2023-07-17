@@ -1,5 +1,6 @@
 # Default values for Speedtest chart.
 # Update these values according to your requirements.
+ingressHost: my.dynamic.ip.or.hostname
 
 influxdb:
   image: influxdb:1.8
@@ -10,10 +11,11 @@ influxdb:
 grafana:
   image: grafana/grafana:6.7.2
   adminPassword: admin
-  port: 3000
+  ROOTURL: "https://{{ .Values.ingressHost }}/api/v1/namespaces/speedtest/services/http:grafana:80/proxy/?orgId=1"
+  port: 80
 
 speedtest:
-  image: sjultra/speedtest-grafana:latest
+  image: frdmn/speedtest-grafana:latest
   interval: 60
   host: ""
 
