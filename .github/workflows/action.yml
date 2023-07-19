@@ -55,7 +55,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: .
+          context: ./docker/speedtest
           file: ./docker/speedtest/Dockerfile
           push: true
           tags: |
