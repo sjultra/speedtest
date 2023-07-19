@@ -6,19 +6,18 @@ RUN echo "deb https://ookla.bintray.com/debian $(lsb_release -sc) main" | tee  /
 RUN apt-get update
 RUN apt-get install speedtest
 
-FROM alpine as install-dependencies
-RUN apk add --no-cache npm
-WORKDIR /build
-COPY . .
-RUN npm ci
-
-FROM alpine as prod-stage
-RUN apk add --no-cache nodejs
+FROM node:16.13-alpine as prod-stage
 LABEL maintainer="contact@sjultra.com"
 
-WORKDIR /usr/src/app
+COPY --from=get-speedtest /usr/bin/speedtest /usr/bin/speedtest
 
+WORKDIR /app
+
+# install depencies
+COPY package.json package-lock.json ./
+RUN npm ci
+
+# run script
+COPY . .
 CMD [ "node", "index.js" ]
 
-COPY --from=get-speedtest /usr/bin/speedtest /usr/bin/speedtest
-COPY --from=install-dependencies /build .
