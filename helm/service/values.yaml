@@ -1,15 +1,21 @@
-replicaCount: 1
+# Default values for Speedtest chart.
+# Update these values according to your requirements.
+ingressHost: my.dynamic.ip.or.hostname
 
-image:
-  repository: alexaaronpenasjultra/pewpew
-  tag: "latest"
-  pullPolicy: IfNotPresent
+influxdb:
+  image: influxdb:1.8
+  adminUser: admin
+  adminPassword: password
+  db: speedtest
 
-service:
-  name: pewpew-service
-  type: ClusterIP
-  port: 8080
-  targetPort: 8080
+grafana:
+  image: grafana/grafana:6.7.2
+  adminPassword: admin
+  ROOTURL: "https://{{ .Values.ingressHost }}/api/v1/namespaces/speedtest/services/http:grafana:80/proxy/?orgId=1"
+  port: 80
 
-env:
-  name: dev
+speedtest:
+  image: sjultra/speedtest:latest
+  interval: 60
+  host: ""
+
