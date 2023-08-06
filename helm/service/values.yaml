@@ -15,7 +15,7 @@ grafana:
   port: 80
 
 speedtest:
-  image: frdmn/speedtest-grafana:latest
+  image: sjultra/speedtest:latest
   interval: 60
   host: ""
 
