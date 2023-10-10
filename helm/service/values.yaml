@@ -1,6 +1,6 @@
 # Default values for Speedtest chart.
 # Update these values according to your requirements.
-ingressHost: my.dynamic.ip.or.hostname
+ingressHost: rancher.vzxy.net
 
 influxdb:
   image: influxdb:1.8
@@ -11,7 +11,7 @@ influxdb:
 grafana:
   image: grafana/grafana:6.7.2
   adminPassword: admin
-  ROOTURL: "https://{{ .Values.ingressHost }}/api/v1/namespaces/speedtest/services/http:grafana:80/proxy/?orgId=1"
+  ROOTURL: "https://rancher.vzxy.net/k8s/clusters/c-m-rw5mmpzg/api/v1/namespaces/speedtest/services/http:grafana:80/proxy/?orgId=1"
   port: 80
 
 speedtest:
