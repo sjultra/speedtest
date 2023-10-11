@@ -11,12 +11,12 @@ LABEL maintainer="contact@sjultra.com"
 WORKDIR /app
 
 # install depencies
-COPY package.json package-lock.json .
+COPY docker/package.json docker/package-lock.json .
 RUN npm ci
 
 # include speedtest cli in build
 COPY --from=get-speedtest /usr/bin/speedtest /usr/bin/speedtest
 
 # run script
-COPY index.js .
+COPY docker/index.js .
 CMD [ "node", "index.js" ]

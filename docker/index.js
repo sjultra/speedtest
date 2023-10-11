@@ -4,10 +4,10 @@ const delay = require("delay");
 
 process.env.INFLUXDB_HOST = (process.env.INFLUXDB_HOST) ? process.env.INFLUXDB_HOST : 'influxdb';
 process.env.INFLUXDB_DB = (process.env.INFLUXDB_DB) ? process.env.INFLUXDB_DB : 'speedtest';
-process.env.INFLUXDB_USERNAME = (process.env.INFLUXDB_USERNAME) ? process.env.INFLUXDB_USERNAME : 'root';
-process.env.INFLUXDB_PASSWORD = (process.env.INFLUXDB_PASSWORD) ? process.env.INFLUXDB_PASSWORD : 'root';
+process.env.INFLUXDB_USERNAME = (process.env.INFLUXDB_USERNAME) ? process.env.INFLUXDB_USERNAME : 'admin';
+process.env.INFLUXDB_PASSWORD = (process.env.INFLUXDB_PASSWORD) ? process.env.INFLUXDB_PASSWORD : 'password';
 process.env.SPEEDTEST_HOST = (process.env.SPEEDTEST_HOST) ? process.env.SPEEDTEST_HOST : 'local';
-process.env.SPEEDTEST_INTERVAL = (process.env.SPEEDTEST_INTERVAL) ? process.env.SPEEDTEST_INTERVAL : 3600;
+process.env.SPEEDTEST_INTERVAL = (process.env.SPEEDTEST_INTERVAL) ? process.env.SPEEDTEST_INTERVAL : 60;
 
 const bitToMbps = bit => (bit / 1000 / 1000) * 8;
 

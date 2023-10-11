@@ -13,11 +13,7 @@ Docker setup consisting out of Grafana incl. a pre-configured dashboard, InfluxD
 git clone https://github.com/sjultra/speedtest.git
 ```
 
-3. Create a copy of the sample `.env` file and adjust it at will:
-
-```shell
-cp .env.sample .env
-```
+3. Open docker-compose.yml and override env vars at will:
 
 4. Spin up the containers:
 
@@ -32,7 +28,7 @@ You can make use of the following environment variables / configurations:
 | Environment variable | Default value | Description
 |----------------------|---------------|------------|
 | `GRAFANA_PORT` | `3000` | Port to bind Grafana webinterface on the host system |
-| `SPEEDTEST_SPEEDTEST_INTERVAL` | `3600` | Interval/pause (in seconds) between speedtests |
+| `SPEEDTEST_INTERVAL` | `3600` | Interval/pause (in seconds) between speedtests |
 | `SPEEDTEST_HOST` | `local` | Display name of the client |
 | `SPEEDTEST_SERVER` | none | Optionally set specific speedtest.net server ID, otherwise use the closest |
 | `INFLUXDB_DB` | `speedtest` | Database to save speedtest results |

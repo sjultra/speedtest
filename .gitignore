@@ -4,3 +4,4 @@ data/grafana/*
 */**/node_modules
 
 */**/data/influxdb/*
+influxdb/data/*
