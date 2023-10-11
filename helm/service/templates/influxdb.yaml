@@ -57,6 +57,8 @@ spec:
           value: {{ .Values.influxdb.adminPassword }}
         - name: INFLUXDB_DB
           value: {{ .Values.influxdb.db }}
+        - name: DB_NAME
+          value: {{ .Values.influxdb.db }}
       volumes:
       - name: influxdb-data
         persistentVolumeClaim:

@@ -3,7 +3,7 @@
 ingressHost: rancher.vzxy.net
 
 influxdb:
-  image: influxdb:1.8
+  image: sjultra/influxdb-legacy:latest
   adminUser: admin
   adminPassword: password
   db: speedtest

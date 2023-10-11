@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: {{ include "<chart-name>.fullname" . }}-grafana-provisioning-datasources
 data:
-  {{- range $path, $bytes := .Files.Glob "files/grafana/provisioning/datasources/*" }}
-  {{ $path | replace "files/grafana/provisioning/datasources/" "" }}: |-
+  {{- range $path, $bytes := .Files.Glob "files/grafana/datasources/*" }}
+  {{ $path | replace "files/grafana/datasources/" "" }}: |-
     {{ $.Files.Get $path | nindent 4 }}
   {{- end }}

@@ -2,3 +2,11 @@ data/influxdb/*
 data/grafana/*
 .env
 */**/node_modules
+
+data/
+/influxdb/
+/grafana/dashboards/*
+!/grafana/dashboards/smokeping.json
+!/grafana/dashboards/dashboard.yml
+/grafana/datasources/*
+!/grafana/datasources/influxdb.yml
