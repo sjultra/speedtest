@@ -11,7 +11,7 @@ influxdb:
 grafana:
   image: grafana/grafana:6.7.2
   adminPassword: admin
-  ROOTURL: "https://rancher.vzxy.net/k8s/clusters/c-m-rw5mmpzg/api/v1/namespaces/speedtest/services/http:grafana:80/proxy/?orgId=1"
+  ROOTURL: "https://kubernetes.default.svc/api/v1/namespaces/speedtest/services/http:grafana:80/proxy/?orgId=1"
   port: 80
 
 speedtest:
