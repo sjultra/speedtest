@@ -10,7 +10,7 @@ Docker setup consisting out of Grafana incl. a pre-configured dashboard, InfluxD
 2. Clone this repository:
 
 ```shell
-git clone https://github.com/frdmn/docker-speedtest-grafana
+git clone https://github.com/sjultra/speedtest.git
 ```
 
 3. Create a copy of the sample `.env` file and adjust it at will:
@@ -88,7 +88,7 @@ $ docker-compose logs -f grafana
 
 By default the dashboard shows all speedtest results. To filter for a specifc host, simply add a `and host = 'local'` statement in the `WHERE` clause of the SQL select.
 
-Example (Download Time Serie):
+Example (Download Time Series):
 
 ```
 SELECT mean("value") FROM "download" WHERE $timeFilter and host = 'local' GROUP BY time($interval) fill(null)

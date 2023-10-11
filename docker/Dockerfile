@@ -18,5 +18,5 @@ RUN npm ci
 COPY --from=get-speedtest /usr/bin/speedtest /usr/bin/speedtest
 
 # run script
-COPY . .
+COPY index.js .
 CMD [ "node", "index.js" ]
