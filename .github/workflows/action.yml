@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: read
+  packages: write       # GHCR push with GITHUB_TOKEN
 
 jobs:
   build:
@@ -39,8 +40,8 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GH_TOKEN }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check version
         id: check
