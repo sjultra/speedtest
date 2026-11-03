@@ -4,6 +4,11 @@
 
 Docker setup consisting out of Grafana incl. a pre-configured dashboard, InfluxDB and a [speedtest.net CLI test](https://www.speedtest.net/apps/cli) runner.
 
+
+We are diverging a fair amount from the original fork.
+The upstream commits don't apply to the current state of our fork.
+We are considering detaching from the fork, or converting + adapting to the upstream's Go code.
+
 ## Installation
 
 1. Make sure you've installed all requirements
