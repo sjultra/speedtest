@@ -12,13 +12,27 @@ spec:
       labels:
         app: speedtest
     spec:
+      {{- with .Values.speedtest.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.speedtest.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.speedtest.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       initContainers:
         - name: influxdb-wait
           image: busybox:1.34.0
+          imagePullPolicy: IfNotPresent
           command: ["sh", "-c", "until nslookup influxdb; do sleep 2; done"]
       containers:
         - name: speedtest
-          image: {{ .Values.speedtest.image }}
+          image: "{{ .Values.speedtest.image.repository }}:{{ .Values.speedtest.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.speedtest.image.pullPolicy }}
           env:
             - name: SPEEDTEST_INTERVAL
               value: "{{ .Values.speedtest.interval }}"

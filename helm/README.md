@@ -1,9 +1,7 @@
 ```
-helm package speedtest-chart
-
+helm package helm/service
 ```
 
-
 ```
-helm install speedtest speedtest-chart-0.1.0.tgz --create-namespace --namespace speedtest
+helm install speedtest speedtest-<version>.tgz --create-namespace --namespace speedtest
 ```

@@ -12,13 +12,27 @@ spec:
       labels:
         app: grafana
     spec:
+      {{- with .Values.grafana.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.grafana.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.grafana.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       initContainers:
         - name: influxdb-wait
           image: busybox:1.34.0
+          imagePullPolicy: IfNotPresent
           command: ["sh", "-c", "until nslookup influxdb; do sleep 2; done"]
       containers:
         - name: grafana
-          image: {{ .Values.grafana.image }}
+          image: "{{ .Values.grafana.image.repository }}:{{ .Values.grafana.image.tag }}"
+          imagePullPolicy: {{ .Values.grafana.image.pullPolicy }}
           ports:
             - containerPort: 3000
           volumeMounts:
@@ -27,8 +41,10 @@ spec:
             - name: grafana-provisioning-datasources
               mountPath: /etc/grafana/provisioning/datasources
           env:
+            {{- with .Values.grafana.rootUrl }}
             - name: GF_SERVER_ROOT_URL
-              value: "{{ .Values.grafana.ROOTURL }}"
+              value: "{{ . }}"
+            {{- end }}
             - name: GF_SECURITY_ADMIN_PASSWORD
               value: "{{ .Values.grafana.adminPassword }}"
             - name: GF_AUTH_ANONYMOUS_ENABLED
@@ -46,10 +62,34 @@ kind: Service
 metadata:
   name: grafana
 spec:
+  type: NodePort
   selector:
     app: grafana
   ports:
-    - protocol: TCP
-      port: {{ .Values.grafana.port }}
+    - name: http          # LAN access at http://<node-ip>:<nodePort>; public traffic goes nginx → Traefik → Ingress
+      protocol: TCP
+      port: 80
       targetPort: 3000
+      nodePort: {{ .Values.grafana.service.nodePort }}
+{{- if .Values.grafana.ingress.enabled }}
 
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: grafana
+  annotations:
+    kubernetes.io/ingress.class: "traefik"  # TLS is terminated by nginx on the proxy host, which forwards to Traefik
+spec:
+  rules:
+    - host: {{ required "grafana.ingress.host is required when grafana.ingress.enabled is true" .Values.grafana.ingress.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: grafana
+                port:
+                  number: 80
+{{- end }}

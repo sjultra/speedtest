@@ -1,21 +1,50 @@
 # Default values for Speedtest chart.
 # Update these values according to your requirements.
-ingressHost: https://kubernetes.default.svc
 
 influxdb:
-  image: sjultra/influxdb-legacy:latest
+  image:
+    repository: influxdb
+    tag: "1.8.10"                         # pinned (not `latest`)
+    pullPolicy: IfNotPresent
   adminUser: admin
   adminPassword: password
-  db: speedtest
+  db: speedtest                           # created on first start
+
+  # deployment target(s)
+  nodeSelector:
+    kubernetes.io/arch: amd64
+  affinity: {}
+  tolerations: []
 
 grafana:
-  image: grafana/grafana:6.7.2
+  image:
+    repository: grafana/grafana
+    tag: "6.7.2"                          # pinned (not `latest`)
+    pullPolicy: IfNotPresent
   adminPassword: admin
-  ROOTURL: "https://kubernetes.default.svc/api/v1/namespaces/speedtest/services/http:grafana:80/proxy/?orgId=1"
-  port: 80
+  rootUrl: ""                             # set only if Grafana must know its public URL; unset, it works at any URL
+  service:
+    nodePort: 30081                       # LAN access: http://<any-node-ip>:30081
+  ingress:
+    enabled: false                        # true = public at https://<host>; TLS is terminated by nginx on the proxy host
+    host: ""                              # required when enabled
+
+  # deployment target(s)
+  nodeSelector:
+    kubernetes.io/arch: amd64
+  affinity: {}
+  tolerations: []
 
 speedtest:
-  image: sjultra/speedtest:latest
+  image:
+    repository: sjultra/speedtest
+    tag: ""                               # defaults to the chart's appVersion; set only to override
+    pullPolicy: IfNotPresent
   interval: 60
   host: ""
 
+  # deployment target(s)
+  nodeSelector:
+    kubernetes.io/arch: amd64             # the image is amd64-only
+  affinity: {}
+  tolerations: []
