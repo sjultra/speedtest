@@ -1,9 +1,7 @@
-FROM debian:10-slim AS get-speedtest
-
-RUN apt-get update
-RUN apt-get install curl -y
-RUN curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | bash
-RUN apt-get install speedtest
+# Ookla's static (musl) CLI, straight from its release tarball
+FROM alpine:3.20 AS get-speedtest
+ARG SPEEDTEST_VERSION=1.2.0
+RUN wget -qO- "https://install.speedtest.net/app/cli/ookla-speedtest-${SPEEDTEST_VERSION}-linux-x86_64.tgz" | tar -xz -C /usr/bin speedtest
 
 FROM node:16.13-alpine AS prod-stage
 LABEL maintainer="contact@sjultra.com"
