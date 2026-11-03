@@ -1,7 +1,6 @@
-# Builds the sjultra/speedtest image and pushes it to Docker Hub.
-# Runs on push to main or Dev, or manual dispatch.
+# This is a basic workflow to help you get started with Actions
 
-name: "[E-STALE] Build and Push Speedtest Docker Image"
+name: Build and push docker image
 
 # Controls when the workflow will run
 on:
